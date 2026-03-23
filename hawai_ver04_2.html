@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌺 HAWAII 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@700;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 50%, #0d1f3c 100%);
+    color: #e8e6e3;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .hero {
+    text-align: center;
+    padding: 40px 20px 40px;
+    background: linear-gradient(180deg, rgba(255,130,80,0.15) 0%, transparent 100%);
+  }
+  .hero-img {
+    width: 100%;
+    max-width: 900px;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 0 auto 24px;
+    display: block;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 .hibiscus {
+    -webkit-text-fill-color: #e53935;
+    font-size: clamp(2.5rem, 7vw, 4.2rem);
+  }
+  .hero h1 .title-text {
+    background: linear-gradient(135deg, #ff8a50, #ffcc02, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .sub {
+    font-size: 1rem;
+    color: #8899bb;
+    margin-top: 8px;
+    letter-spacing: 0.15em;
+  }
+  .hero .tags {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: #667799;
+    letter-spacing: 0.1em;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* Section Headers */
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 40px 0 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255,138,80,0.3);
+    color: #ffcc02;
+  }
+
+  /* Flight Table */
+  .flight-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.85rem; }
+  .flight-table th { background: rgba(255,138,80,0.15); color: #ffcc02; padding: 10px 8px; text-align: left; font-weight: 500; }
+  .flight-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .flight-table tr:hover { background: rgba(255,255,255,0.03); }
+  .flight-summary {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    line-height: 2;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Day Cards */
+  .day-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .day-card:hover { transform: translateY(-2px); }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    flex-wrap: wrap;
+  }
+  .day-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  .day-badge.ocean { background: linear-gradient(135deg, #0077b6, #00b4d8); color: #fff; }
+  .day-badge.teal { background: linear-gradient(135deg, #00897b, #26a69a); color: #fff; }
+  .day-badge.palm { background: linear-gradient(135deg, #2e7d32, #66bb6a); color: #fff; }
+  .day-badge.coral { background: linear-gradient(135deg, #e65100, #ff8a50); color: #fff; }
+  .day-badge.sunset { background: linear-gradient(135deg, #ad1457, #f06292); color: #fff; }
+  .day-badge.gold { background: linear-gradient(135deg, #f9a825, #fdd835); color: #333; }
+  .day-badge.sky { background: linear-gradient(135deg, #1565c0, #42a5f5); color: #fff; }
+  .day-title { font-size: 1.1rem; font-weight: 700; }
+  .day-tz { font-size: 0.75rem; color: #8899bb; margin-left: auto; }
+
+  /* Photos */
+  .photos {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .photo-wrap { flex: 0 0 auto; width: 180px; text-align: center; }
+  .photo-wrap img { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; }
+  .cap { font-size: 0.7rem; color: #8899bb; margin-top: 4px; }
+
+  /* Transport Info */
+  .transport-info {
+    margin: 0 16px 12px;
+    padding: 10px 14px;
+    background: rgba(0,119,182,0.12);
+    border-left: 3px solid #00b4d8;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.8rem;
+    color: #90caf9;
+  }
+
+  /* Timeline */
+  .timeline { padding: 8px 20px 20px; }
+  .tl-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time {
+    flex: 0 0 90px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #ffcc02;
+    padding-top: 2px;
+  }
+  .tl-dot {
+    flex: 0 0 10px;
+    width: 10px;
+    height: 10px;
+    background: #ff8a50;
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+  .tl-content { flex: 1; font-size: 0.85rem; }
+  .tl-note { font-size: 0.75rem; color: #8899bb; margin-top: 2px; }
+
+  /* Info Card */
+  .info-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .info-card h3 {
+    font-size: 1rem;
+    color: #ffcc02;
+    margin-bottom: 12px;
+  }
+  .info-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .info-card li {
+    padding: 4px 0;
+    font-size: 0.85rem;
+    padding-left: 1.2em;
+    text-indent: -1.2em;
+  }
+  .info-card li::before { content: "✓ "; color: #66bb6a; }
+
+  /* Checklist */
+  .checklist { columns: 2; column-gap: 20px; }
+  .checklist li { break-inside: avoid; }
+
+  /* Alert */
+  .alert {
+    background: rgba(255,107,157,0.1);
+    border-left: 3px solid #ff6b9d;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+  }
+  .alert strong { color: #ff6b9d; }
+
+  /* Budget Table */
+  .budget-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.82rem; }
+  .budget-table th { background: rgba(255,138,80,0.1); color: #ffcc02; padding: 8px; text-align: left; }
+  .budget-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .budget-table .total { font-weight: 700; color: #ff8a50; }
+
+  /* Free Day */
+  .free-day-banner {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(255,204,2,0.08), rgba(255,138,80,0.08));
+    border-radius: 12px;
+    margin: 12px 16px 20px;
+  }
+  .free-day-banner .emoji { font-size: 2.5rem; margin-bottom: 8px; }
+  .free-day-banner .label { font-size: 1.1rem; font-weight: 700; color: #ffcc02; }
+  .free-day-banner .desc { font-size: 0.82rem; color: #8899bb; margin-top: 8px; line-height: 1.8; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .flight-table { font-size: 0.72rem; }
+    .flight-table th, .flight-table td { padding: 6px 4px; }
+    .day-header { padding: 12px 14px; }
+    .timeline { padding: 8px 14px 16px; }
+    .tl-time { flex: 0 0 70px; font-size: 0.75rem; }
+    .checklist { columns: 1; }
+    .photo-wrap { width: 150px; }
+    .photo-wrap img { height: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img" src="https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?auto=compress&cs=tinysrgb&w=900" alt="North Shore Hawaii Sunset">
+  <h1><span class="hibiscus">🌺</span> <span class="title-text">HAWAII 2026</span></h1>
+  <div class="sub">MARCH 23 – 29</div>
+  <div class="tags">WAIKIKI · GRAND ISLANDER · FAMILY TRIP · 5 PEOPLE</div>
+</div>
+
+<div class="container">
+
+  <!-- ✈️ FLIGHT -->
+  <div class="section-title">✈️ フライトスケジュール（タイムゾーン明記版）</div>
+  <div style="overflow-x:auto;">
+  <table class="flight-table">
+    <tr><th>#</th><th>DATE</th><th>時刻</th><th>区間</th><th>便名</th><th>飛行時間</th><th>TZ</th></tr>
+    <tr><td>1</td><td><strong>3/23（月）</strong></td><td>17:50発→19:30着</td><td>福岡→羽田</td><td>NH264</td><td>1h40m</td><td>🇯🇵 JST</td></tr>
+    <tr><td>2</td><td><strong>3/23（月）</strong></td><td>21:55発</td><td>羽田→ホノルル</td><td>NH186</td><td>6h50m</td><td>🇯🇵 JST</td></tr>
+    <tr><td>3</td><td><strong>3/23（月）</strong></td><td>09:45着</td><td>羽田→ホノルル</td><td>NH186</td><td>—</td><td>🌺 HST</td></tr>
+    <tr><td>4</td><td><strong>3/28（土）</strong></td><td>12:55発</td><td>ホノルル→羽田</td><td>NH185</td><td>9h25m</td><td>🌺 HST</td></tr>
+    <tr><td>5</td><td><strong>3/29（日）</strong></td><td>17:20着</td><td>ホノルル→羽田</td><td>NH185</td><td>—</td><td>🇯🇵 JST</td></tr>
+    <tr><td>6</td><td><strong>3/29（日）</strong></td><td>19:35発→21:30着</td><td>羽田→福岡</td><td>NH273</td><td>1h55m</td><td>🇯🇵 JST</td></tr>
+  </table>
+  </div>
+
+  <div class="flight-summary">
+    3/23（月）🇯🇵 福岡 17:50発 → 羽田 19:30着<br>
+    3/23（月）🇯🇵 羽田 21:55発　✈️ 機内 6時間50分<br>
+    3/23（月）🌺 ホノルル 09:45着　＝（日本時間では3/24の04:45）<br><br>
+    〜〜〜　ハワイ滞在 5泊　3/23・24・25・26・27（ハワイ時間）　〜〜〜<br><br>
+    3/28（土）🌺 ホノルル 12:55発　✈️ 機内 9時間25分　＝（日本時間では3/29の07:55発）<br>
+    3/29（日）🇯🇵 羽田 17:20着<br>
+    3/29（日）🇯🇵 羽田 19:35発 → 福岡 21:30着 🏠
+  </div>
+
+  <!-- HIS チェックイン情報 -->
+  <div class="alert">
+    <strong>📋 HISからの案内：チェックイン手続き</strong><br>
+    ・往路：福岡空港でホノルル空港までのチェックイン → E-チケット＋パスポート提示<br>
+    ・復路：ホノルル空港で福岡空港までのチェックイン → E-チケット＋パスポート提示<br>
+    ・荷物：往路はスルー（ホノルルまで直通）／復路は羽田空港で一度ピックアップが必要<br>
+    ※航空会社のルールや状況により稀に変更の可能性あり。念のためカウンターで再確認を。
+  </div>
+
+  <!-- ===== DAY CARDS ===== -->
+
+  <!-- 3/23 到着日 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge ocean">3/23 月</div>
+      <div class="day-title">✈️ 出発＆到着日</div>
+      <div class="day-tz">🇯🇵→🌺 JST→HST</div>
+    </div>
+    <div class="photos">
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&w=500" alt="飛行機">
+        <div class="cap">✈️ ANA国際線</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/1174732/pexels-photo-1174732.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ハワイ到着">
+        <div class="cap">🌺 ハワイ到着・ヤシの木</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ヒルトン">
+        <div class="cap">🏨 ヒルトン・グランドアイランダー</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">17:50</div><div class="tl-dot"></div><div class="tl-content"><strong>福岡空港出発</strong>（NH264）<div class="tl-note">国内線→羽田 19:30着。乗り継ぎ約2時間</div></div></div>
+      <div class="tl-item"><div class="tl-time">21:55</div><div class="tl-dot"></div><div class="tl-content"><strong>羽田出発</strong>（NH186）<div class="tl-note">国際線ホノルル行き。機内6時間50分</div></div></div>
+      <div class="tl-item"><div class="tl-time">09:45 HST</div><div class="tl-dot"></div><div class="tl-content">🌺 <strong>ホノルル・ダニエル・K・イノウエ空港着</strong><div class="tl-note">入国審査→荷物受取→税関</div></div></div>
+      <div class="tl-item"><div class="tl-time">11:00頃</div><div class="tl-dot"></div><div class="tl-content">🚕 <strong>Uber XLでヒルトンへ</strong>（約20〜30分・$40〜60）</div></div>
+      <div class="tl-item"><div class="tl-time">12:00</div><div class="tl-dot"></div><div class="tl-content">🏨 <strong>ヒルトン・グランドアイランダー チェックイン</strong><div class="tl-note">チェックイン15:00前でも荷物預け可能。ロビーで手続き</div></div></div>
+      <div class="tl-item"><div class="tl-time">午後</div><div class="tl-dot"></div><div class="tl-content">🏖 <strong>ワイキキビーチ散策＆休憩</strong><div class="tl-note">時差ボケ対策：到着日は無理せずワイキキ周辺でのんびり</div></div></div>
+      <div class="tl-item"><div class="tl-time">夜</div><div class="tl-dot"></div><div class="tl-content">🍽 <strong>ワイキキ周辺でディナー or 部屋食</strong></div></div>
+    </div>
+  </div>
+
+  <!-- 3/24 ワイキキ＆アラモアナ -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge teal">3/24 火</div>
+      <div class="day-title">🏖 ワイキキ＆アラモアナ</div>
+      <div class="day-tz">🌺 ハワイ時間（HST）</div>
+    </div>
+    <div class="photos">
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/1174742/pexels-photo-1174742.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ワイキキ">
+        <div class="cap">🏖 ワイキキビーチ</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg?auto=compress&cs=tinysrgb&w=500" alt="アラモアナ">
+        <div class="cap">🛍 アラモアナセンター</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/3601426/pexels-photo-3601426.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ダイヤモンドヘッド">
+        <div class="cap">🌅 ダイヤモンドヘッド</div>
+      </div>
+    </div>
+    <div class="transport-info">🚌 TheBus推奨：ヒルトン→アラモアナ 約10〜15分（$3/大人・$1.50/子ども）。徒歩でも約20〜25分</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">午前</div><div class="tl-dot"></div><div class="tl-content"><strong>ワイキキビーチ</strong>でゆっくり<div class="tl-note">時差ボケが残る可能性あり。午前中はビーチ＆プールでのんびり</div></div></div>
+      <div class="tl-item"><div class="tl-time">12:00〜</div><div class="tl-dot"></div><div class="tl-content">🍽 <strong>ランチ</strong>（ワイキキ周辺）</div></div>
+      <div class="tl-item"><div class="tl-time">14:00〜18:00</div><div class="tl-dot"></div><div class="tl-content">🛍 <strong>アラモアナセンター</strong><div class="tl-note">営業時間 10:00〜20:00。フードコートも充実。エルメス・ルイヴィトン等ブランド店あり</div></div></div>
+      <div class="tl-item"><div class="tl-time">夜</div><div class="tl-dot"></div><div class="tl-content">🍽 <strong>ディナー</strong>（ワイキキ or アラモアナ周辺）</div></div>
+    </div>
+  </div>
+
+  <!-- 3/25 ノースショア＋ラニカイビーチ【レンタカー】 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge palm">3/25 水</div>
+      <div class="day-title">🌊 ノースショア＋ラニカイビーチ</div>
+      <div class="day-tz">🌺 ハワイ時間（HST）</div>
+    </div>
+    <div class="photos">
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/358457/pexels-photo-358457.jpeg?auto=compress&cs=tinysrgb&w=500" alt="滝">
+        <div class="cap">💧 ワイメアバレー・天然の滝</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/1295138/pexels-photo-1295138.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ノースショア">
+        <div class="cap">🍧 ハレイワタウン</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ラニカイ">
+        <div class="cap">🐢 ラニカイビーチ・ハワイNo.1透明度</div>
+      </div>
+    </div>
+    <div class="transport-info">🚗 <strong>レンタカー利用日</strong>（9:00ピックアップ／$60〜80/日）：レンタカー屋の駐車場利用可。ノースショア→ラニカイの移動も車なら40分。TheBusでは往復4時間以上かつラニカイへの寄り道不可</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">09:00</div><div class="tl-dot"></div><div class="tl-content">🚗 <strong>レンタカーピックアップ</strong><div class="tl-note">SUV（5人乗り）。レンタカー屋の駐車場を利用可能。日本の免許証＋国際免許証を持参</div></div></div>
+      <div class="tl-item"><div class="tl-time">09:30〜11:30</div><div class="tl-dot"></div><div class="tl-content">💧 <strong>ワイメアバレー</strong>（9:00〜16:00営業）<div class="tl-note">植物園＋天然の滝壺で泳げる。入場料$25/大人 $12/子供(4〜12歳)</div></div></div>
+      <div class="tl-item"><div class="tl-time">12:00〜14:00</div><div class="tl-dot"></div><div class="tl-content">🍧 <strong>ハレイワタウン</strong>・マツモトシェイブアイス・ランチ<div class="tl-note">サーフショップ・ローカルカフェ多数。ノースショアビーチも散策</div></div></div>
+      <div class="tl-item"><div class="tl-time">15:00〜17:00</div><div class="tl-dot"></div><div class="tl-content">🐢 <strong>ラニカイビーチ</strong>（カイルア方面・帰り道）<div class="tl-note">ハワイNo.1の透明度。ウミガメに会える可能性大。駐車場なし→カイルアビーチパークに駐車して徒歩15〜20分</div></div></div>
+      <div class="tl-item"><div class="tl-time">18:00</div><div class="tl-dot"></div><div class="tl-content">🚗 <strong>レンタカー返却 → ヒルトン帰着</strong></div></div>
+      <div class="tl-item"><div class="tl-time">夜</div><div class="tl-dot"></div><div class="tl-content">🍽 <strong>部屋食</strong></div></div>
+    </div>
+  </div>
+
+  <!-- 3/26 フリー -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge coral">3/26 木</div>
+      <div class="day-title">🌴 フリーデー</div>
+      <div class="day-tz">🌺 ハワイ時間（HST）</div>
+    </div>
+    <div class="photos">
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=500" alt="アサイーボウル">
+        <div class="cap">🍇 アサイーボウル</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=500" alt="パンケーキ">
+        <div class="cap">🥞 ハワイアンパンケーキ</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/1209029/pexels-photo-1209029.jpeg?auto=compress&cs=tinysrgb&w=500" alt="トロピカルドリンク">
+        <div class="cap">🍹 トロピカルドリンク</div>
+      </div>
+    </div>
+    <div class="free-day-banner">
+      <div class="emoji">🌴☀️🐚</div>
+      <div class="label">FREE DAY — 予定なし・のんびり満喫</div>
+      <div class="desc">
+        この日は予定を入れないフリーの日です。<br>
+        気分に合わせてビーチ・プール・買い物・グルメなど自由に過ごしましょう。<br>
+        候補：ダイヤモンドヘッド登山 / ハナウマ湾シュノーケリング / カイルアタウン散策 / マノア滝トレイル / Wet'n'Wild Hawaii etc.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3/27 ショッピング＆お土産 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge sunset">3/27 金</div>
+      <div class="day-title">🛍 ショッピング＆お土産購入（暫定）</div>
+      <div class="day-tz">🌺 ハワイ時間（HST）</div>
+    </div>
+    <div class="photos">
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg?auto=compress&cs=tinysrgb&w=500" alt="アラモアナ">
+        <div class="cap">🛍 アラモアナセンター</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?auto=compress&cs=tinysrgb&w=500" alt="ブランドショップ">
+        <div class="cap">👜 エルメス・クロムハーツ等</div>
+      </div>
+      <div class="photo-wrap">
+        <img src="https://images.pexels.com/photos/264985/pexels-photo-264985.jpeg?auto=compress&cs=tinysrgb&w=500" alt="お土産">
+        <div class="cap">🎁 お土産・ギフト</div>
+      </div>
+    </div>
+    <div class="transport-info">🚌 TheBus / 徒歩：ワイキキ〜アラモアナ間は近距離。DFS・ロイヤルハワイアンセンターは徒歩圏内</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">午前</div><div class="tl-dot"></div><div class="tl-content"><strong>ワイキキ周辺でお土産ショッピング</strong><div class="tl-note">ABCストア・DFS・ロイヤルハワイアンセンター。定番：マカダミアナッツチョコ・コナコーヒー・パンケーキミックス等</div></div></div>
+      <div class="tl-item"><div class="tl-time">12:00〜</div><div class="tl-dot"></div><div class="tl-content">🍽 <strong>ランチ</strong></div></div>
+      <div class="tl-item"><div class="tl-time">午後</div><div class="tl-dot"></div><div class="tl-content">🛍 <strong>アラモアナセンターでショッピング</strong><div class="tl-note">最終日前日の買い忘れチェック。帰国時の荷物整理も考慮</div></div></div>
+      <div class="tl-item"><div class="tl-time">夜</div><div class="tl-dot"></div><div class="tl-content">🍽 <strong>ハワイ最後のディナー</strong><div class="tl-note">ワイキキで最後の夜を満喫</div></div></div>
+      <div class="tl-item"><div class="tl-time">就寝前</div><div class="tl-dot"></div><div class="tl-content">🧳 <strong>パッキング＆荷物整理</strong><div class="tl-note">翌日チェックアウト。スーツケース重量確認（ANA無料枠：23kg×2個/人）</div></div></div>
+    </div>
+  </div>
+
+  <!-- 3/28 帰国日 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge sky">3/28 土</div>
+      <div class="day-title">✈️ 帰国日</div>
+      <div class="day-tz">🌺 HST → 🇯🇵 JST</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">08:00</div><div class="tl-dot"></div><div class="tl-content"><strong>起床・荷物最終チェック</strong></div></div>
+      <div class="tl-item"><div class="tl-time">09:00</div><div class="tl-dot"></div><div class="tl-content">🏨 <strong>チェックアウト</strong><div class="tl-note">荷物をベルデスクに預けて、出発までワイキキを散策するのもOK</div></div></div>
+      <div class="tl-item"><div class="tl-time">10:00</div><div class="tl-dot"></div><div class="tl-content">🚕 <strong>Uber XLで空港へ</strong>（約20〜30分）<div class="tl-note">出発3時間前を目安。余裕を持って空港へ</div></div></div>
+      <div class="tl-item"><div class="tl-time">10:30</div><div class="tl-dot"></div><div class="tl-content">✈️ <strong>ダニエル・K・イノウエ空港着</strong><div class="tl-note">チェックイン→荷物預け→保安検査→出国審査</div></div></div>
+      <div class="tl-item"><div class="tl-time">12:55</div><div class="tl-dot"></div><div class="tl-content">✈️ <strong>ホノルル出発</strong>（NH185）<div class="tl-note">機内9時間25分</div></div></div>
+    </div>
+  </div>
+
+  <!-- 3/29 日本到着 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div class="day-badge gold">3/29 日</div>
+      <div class="day-title">🏠 日本到着</div>
+      <div class="day-tz">🇯🇵 日本時間（JST）</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-time">17:20</div><div class="tl-dot"></div><div class="tl-content"><strong>羽田空港着</strong><div class="tl-note">入国審査→ <strong>荷物ピックアップ（復路は羽田で要受取）</strong> →税関→国内線乗り継ぎ</div></div></div>
+      <div class="tl-item"><div class="tl-time">19:35</div><div class="tl-dot"></div><div class="tl-content">✈️ <strong>羽田→福岡</strong>（NH273）<div class="tl-note">飛行時間1時間55分</div></div></div>
+      <div class="tl-item"><div class="tl-time">21:30</div><div class="tl-dot"></div><div class="tl-content">🏠 <strong>福岡空港到着　おつかれさまでした！</strong></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SUPPORT INFO ===== -->
+
+  <div class="section-title">📞 HISサポート情報</div>
+  <div class="info-card">
+    <h3>🏢 HIS ホノルル支店</h3>
+    <ul>
+      <li>所在地：ワイキキ・ショッピングプラザ2F（ロイヤルハワイアンセンター向かい）</li>
+      <li>営業時間：8:00〜18:00（年中無休）</li>
+      <li>24時間緊急連絡先：+1-808-○○○-○○○○（旅行書類に記載）</li>
+      <li>帰りのフライト日程変更等はHIS経由で確認</li>
+    </ul>
+  </div>
+
+  <!-- ターミナル情報 -->
+  <div class="section-title">🗺 空港ターミナル情報</div>
+  <div class="info-card">
+    <h3>🇯🇵 福岡空港</h3>
+    <ul>
+      <li>国内線ターミナル：NH264搭乗口（第2ターミナル・ANA側）</li>
+      <li>出発2時間前到着推奨（15:50目安）</li>
+      <li>チェックイン：福岡空港でホノルルまでのチェックイン＋搭乗券発行</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3>🇯🇵 羽田空港（乗り継ぎ）</h3>
+    <ul>
+      <li>国内線（第2）→ 国際線（第3）ターミナルへ移動（無料シャトルバス 約10分）</li>
+      <li>乗り継ぎ時間：約2時間25分（19:30着→21:55発）</li>
+      <li>出国審査・保安検査あり → 余裕を持って移動</li>
+    </ul>
+  </div>
+  <div class="info-card">
+    <h3>🌺 ダニエル・K・イノウエ国際空港（ホノルル）</h3>
+    <ul>
+      <li>到着：ターミナル2（国際線）</li>
+      <li>出発：ターミナル2　チェックインカウンターはANAゾーン</li>
+      <li>出発時：ホノルル空港で福岡空港までのチェックイン＋搭乗券発行</li>
+      <li>空港内免税店あり（DFS）</li>
+    </ul>
+  </div>
+
+  <!-- 🚗 レンタカー注意事項 -->
+  <div class="section-title">🚗 レンタカー運転ガイド（ハワイ）</div>
+  <div class="info-card">
+    <h3>🔑 日本との主な違い</h3>
+    <ul>
+      <li><strong>右側通行・左ハンドル</strong>：右折は手前に小さく、左折は奥に大きく</li>
+      <li><strong>赤信号でも右折OK</strong>：一旦停止後、安全確認して右折可。「NO TURN ON RED」標識がある場所は禁止</li>
+      <li><strong>STOP / ALL WAY標識</strong>：全方向停止→到着順に通行</li>
+      <li><strong>横断歩道は歩行者絶対優先</strong>：違反で$150以上の罰金</li>
+      <li><strong>スクールバス停車中（赤ランプ点滅）</strong>：追い越し禁止（対向車線含む）</li>
+      <li><strong>速度はマイル表示</strong>：一般道25〜35mph / 高速45〜60mph</li>
+      <li><strong>ウィンカーとワイパーが左右逆</strong></li>
+      <li>事故時「I'm sorry」は絶対に言わない</li>
+      <li>持参物：日本の運転免許証 ＋ 国際免許証</li>
+    </ul>
+  </div>
+
+  <!-- チェックリスト -->
+  <div class="section-title">✅ 出発前チェックリスト</div>
+  <div class="info-card">
+    <h3>📋 持ち物チェック</h3>
+    <ul class="checklist">
+      <li>パスポート（有効期限確認）</li>
+      <li>ESTA（電子渡航認証）</li>
+      <li>E-チケット控え</li>
+      <li>HIS旅行書類一式</li>
+      <li>クレジットカード（VISA/Master推奨）</li>
+      <li>海外旅行保険証券</li>
+      <li>国際免許証（花畑試験場で即日取得可）</li>
+      <li>日本の運転免許証</li>
+      <li>スマホ＆充電器（Uber/Google Map必須）</li>
+      <li>変換プラグ不要（ハワイは日本と同じAタイプ）</li>
+      <li>日焼け止め（リーフセーフ推奨）</li>
+      <li>ラッシュガード・水着</li>
+      <li>常備薬</li>
+      <li>折りたたみ傘（3月は雨季の終わり）</li>
+    </ul>
+  </div>
+
+  <div class="info-card">
+    <h3>📱 現地で便利なアプリ</h3>
+    <ul>
+      <li><strong>Uber</strong>：タクシー代わり。Uber XLで5人＋荷物OK</li>
+      <li><strong>Google Maps</strong>：TheBusのリアルタイム乗り換え案内対応</li>
+      <li><strong>Transit</strong>：TheBusのリアルタイム位置＆時刻表</li>
+      <li><strong>翻訳アプリ</strong>：万が一のトラブル時に</li>
+    </ul>
+  </div>
+
+  <!-- TheBus料金 -->
+  <div class="section-title">🚌 TheBus 料金表（参考）</div>
+  <div class="info-card">
+    <h3>💰 5人家族・1日パス</h3>
+    <table class="budget-table">
+      <tr><th>対象</th><th>人数</th><th>1日パス</th><th>5日分</th></tr>
+      <tr><td>大人（18歳以上）</td><td>3名</td><td>$7.50×3 = $22.50</td><td>$112.50</td></tr>
+      <tr><td>子ども（6〜17歳）</td><td>2名</td><td>$3.75×2 = $7.50</td><td>$37.50</td></tr>
+      <tr class="total"><td colspan="3"><strong>合計</strong></td><td><strong>$150.00</strong></td></tr>
+    </table>
+    <div style="font-size:0.75rem;color:#8899bb;margin-top:8px;">
+      ※ユースHOLOカード（$2/枚）の事前申請が必要。サテライトシティホールにて申請（パスポート要持参）<br>
+      ※5歳以下は無料（大人1名につき子ども1名まで）
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding:40px 0 20px;color:#445566;font-size:0.75rem;">
+    🌺 HAWAII FAMILY TRIP 2026 — Ver.04<br>
+    Last updated: 2026-03-23
+  </div>
+
+</div>
+</body>
+</html>
